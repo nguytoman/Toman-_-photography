@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Úvod",
+    "gallery": "Galerie",
+    "about": "O mně",
+    "admin": "Admin"
+  },
+  "home": {
+    "role": "Fotograf",
+    "tagline": "Vizuální archiv",
+    "sub": "Zachycuji okamžiky, které trvají déle než vteřinu.",
+    "cta": "Zobrazit galerii",
+    "stats": {
+      "photos": "Fotografií",
+      "albums": "Alb",
+      "years": "Rok zkušeností"
+    }
+  },
+  "gallery": {
+    "title": "Galerie",
+    "all": "Vše",
+    "empty": "Žádné fotografie v tomto albu.",
+    "loading": "Načítám...",
+    "photo": "Fotografie",
+    "of": "z"
+  },
+  "about": {
+    "title": "O mně",
+    "bio": "Fotograf se zaměřením na dokumentární a pouliční fotografii. Věřím, že každý záběr vypráví příběh — stačí jen počkat na správný okamžik.",
+    "contact": "Kontakt",
+    "email": "E-mail",
+    "instagram": "Instagram",
+    "location": "Lokace",
+    "locationValue": "Praha, CZ"
+  },
+  "admin": {
+    "title": "Admin",
+    "login": "Přihlásit se",
+    "logout": "Odhlásit se",
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
+    "loginBtn": "Přihlásit",
+    "upload": "Nahrát fotografie",
+    "dropzone": "Přetáhněte soubory sem nebo klikněte pro výběr",
+    "album": "Album",
+    "selectAlbum": "Vyberte album",
+    "newAlbum": "Nové album",
+    "albumNameCs": "Název alba (CZ)",
+    "albumNameEn": "Název alba (EN)",
+    "albumSlug": "Slug (URL)",
+    "createAlbum": "Vytvořit album",
+    "uploadBtn": "Nahrát",
+    "photos": "Správa fotografií",
+    "delete": "Smazat",
+    "confirmDelete": "Opravdu smazat tuto fotografii?",
+    "uploading": "Nahrávám...",
+    "loginError": "Nesprávné přihlašovací údaje.",
+    "noPhotos": "Žádné fotografie."
+  }
+}

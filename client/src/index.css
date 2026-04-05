@@ -1,0 +1,207 @@
+/* ── Design tokens ──────────────────────────────────────────── */
+:root {
+  --bg:           #080808;
+  --surface:      #0f0f0f;
+  --surface-2:    #151515;
+  --border:       #1c1c1c;
+  --border-2:     #252525;
+  --accent:       #f5c400;
+  --accent-dim:   rgba(245, 196, 0, 0.10);
+  --accent-glow:  rgba(245, 196, 0, 0.04);
+  --text:         #dedede;
+  --text-dim:     #777777;
+  --text-muted:   #333333;
+  --font-display: 'Orbitron', monospace;
+  --font-body:    'Space Grotesk', sans-serif;
+  --nav-h:        64px;
+  --ease:         0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --corner:       8px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body { min-height: 100vh; background: var(--bg); }
+
+#root { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+p { max-width: 68ch; }
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-2); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Button ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.6rem;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--ease), color var(--ease);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn:hover { background: var(--accent); color: var(--bg); }
+.btn:active { opacity: 0.85; }
+
+.btn-ghost {
+  border-color: var(--border-2);
+  color: var(--text-dim);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+.btn-danger {
+  border-color: #c0392b;
+  color: #c0392b;
+}
+.btn-danger:hover { background: #c0392b; color: #fff; }
+
+/* ── Form inputs ─────────────────────────────────────────────── */
+.input {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  outline: none;
+  transition: border-color var(--ease);
+  appearance: none;
+}
+.input:focus { border-color: var(--accent); }
+.input::placeholder { color: var(--text-muted); }
+
+.input-label {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* ── Tag / badge ─────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-2);
+  color: var(--text-dim);
+}
+.tag-accent { border-color: var(--accent); color: var(--accent); }
+
+/* ── Tech label / mono prefix ───────────────────────────────── */
+.tech {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.tech-accent { color: var(--accent); }
+
+/* ── Layout ──────────────────────────────────────────────────── */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.page {
+  flex: 1;
+  padding-top: var(--nav-h);
+}
+
+/* ── Grid bg texture ─────────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--border); }
+
+/* ── Scanline overlay ────────────────────────────────────────── */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Corner bracket decoration ──────────────────────────────── */
+.corner-br::before,
+.corner-br::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+.corner-br::before {
+  top: 0; left: 0;
+  border-width: 1px 0 0 1px;
+}
+.corner-br::after {
+  bottom: 0; right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* ── Utility ─────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}

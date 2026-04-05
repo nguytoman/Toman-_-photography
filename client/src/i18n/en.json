@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "about": "About",
+    "admin": "Admin"
+  },
+  "home": {
+    "role": "Photographer",
+    "tagline": "Visual Archive",
+    "sub": "Capturing moments that last longer than a second.",
+    "cta": "View gallery",
+    "stats": {
+      "photos": "Photos",
+      "albums": "Albums",
+      "years": "Years of experience"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "all": "All",
+    "empty": "No photos in this album.",
+    "loading": "Loading...",
+    "photo": "Photo",
+    "of": "of"
+  },
+  "about": {
+    "title": "About",
+    "bio": "A photographer focused on documentary and street photography. I believe every frame tells a story — you just have to wait for the right moment.",
+    "contact": "Contact",
+    "email": "Email",
+    "instagram": "Instagram",
+    "location": "Location",
+    "locationValue": "Prague, CZ"
+  },
+  "admin": {
+    "title": "Admin",
+    "login": "Login",
+    "logout": "Logout",
+    "username": "Username",
+    "password": "Password",
+    "loginBtn": "Sign in",
+    "upload": "Upload photos",
+    "dropzone": "Drop files here or click to select",
+    "album": "Album",
+    "selectAlbum": "Select album",
+    "newAlbum": "New album",
+    "albumNameCs": "Album name (CS)",
+    "albumNameEn": "Album name (EN)",
+    "albumSlug": "Slug (URL)",
+    "createAlbum": "Create album",
+    "uploadBtn": "Upload",
+    "photos": "Manage photos",
+    "delete": "Delete",
+    "confirmDelete": "Really delete this photo?",
+    "uploading": "Uploading...",
+    "loginError": "Invalid credentials.",
+    "noPhotos": "No photos."
+  }
+}

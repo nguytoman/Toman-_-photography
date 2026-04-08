@@ -1,6 +1,7 @@
 node_modules/
 .DS_Store
 server/uploads/
+server/data/originals/
 data.db
 .env
 client/dist/

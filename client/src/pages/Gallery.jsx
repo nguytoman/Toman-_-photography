@@ -41,7 +41,7 @@ export default function Gallery() {
                 marginBottom: '0.5rem',
               }}
             >
-              // {t('gallery.title')}
+              // PHOTOGRAPHY{activeAlbum ? `/${activeAlbum}` : '/ALL'}
             </div>
             <h1
               style={{
@@ -71,7 +71,7 @@ export default function Gallery() {
             <span style={{ color: 'var(--accent)', fontSize: '1.2rem', fontWeight: 900, verticalAlign: 'middle' }}>
               {String(photos.length).padStart(3, '0')}
             </span>{' '}
-            {t('gallery.photo').toUpperCase()}
+            {(photos.length === 1 ? t('gallery.photo') : t('gallery.photos')).toUpperCase()}
           </div>
         </div>
       </div>
@@ -98,9 +98,9 @@ export default function Gallery() {
           />
           {albums.map((album) => (
             <AlbumTab
-              key={album.id}
-              active={activeAlbum === album.id}
-              onClick={() => setActiveAlbum(album.id)}
+              key={album.slug}
+              active={activeAlbum === album.slug}
+              onClick={() => setActiveAlbum(album.slug)}
               label={lang === 'cs' ? album.title_cs : album.title_en}
             />
           ))}

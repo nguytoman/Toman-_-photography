@@ -7,16 +7,16 @@ export default function Lightbox({ photos, index, onClose, onNavigate }) {
   const photo = photos[index]
 
   const prev = useCallback(() => {
-    if (index > 0) onNavigate(index - 1)
-  }, [index, onNavigate])
+    onNavigate(index === 0 ? photos.length - 1 : index - 1)
+  }, [index, photos.length, onNavigate])
 
   const next = useCallback(() => {
-    if (index < photos.length - 1) onNavigate(index + 1)
+    onNavigate(index === photos.length - 1 ? 0 : index + 1)
   }, [index, photos.length, onNavigate])
 
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') { e.preventDefault(); onClose() }
       if (e.key === 'ArrowLeft') prev()
       if (e.key === 'ArrowRight') next()
     }
@@ -98,6 +98,65 @@ export default function Lightbox({ photos, index, onClose, onNavigate }) {
         </button>
       </div>
 
+      {/* Side arrows */}
+      <button
+        onClick={(e) => { e.stopPropagation(); prev() }}
+        style={{
+          position: 'absolute',
+          left: '1.5rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          opacity: 0.6,
+          transition: 'opacity var(--ease)',
+          lineHeight: 1,
+          padding: '0.5rem',
+          zIndex: 10,
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.opacity = '1' }}
+        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6' }}
+      >
+        <span style={{
+          display: 'block',
+          width: '22px',
+          height: '22px',
+          borderTop: '1px solid var(--accent)',
+          borderLeft: '1px solid var(--accent)',
+          transform: 'rotate(-45deg)',
+        }} />
+      </button>
+
+      <button
+        onClick={(e) => { e.stopPropagation(); next() }}
+        style={{
+          position: 'absolute',
+          right: '1.5rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          opacity: 0.6,
+          transition: 'opacity var(--ease)',
+          lineHeight: 1,
+          padding: '0.5rem',
+          zIndex: 10,
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.opacity = '1' }}
+        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6' }}
+      >
+        <span style={{
+          display: 'block',
+          width: '22px',
+          height: '22px',
+          borderTop: '1px solid var(--accent)',
+          borderRight: '1px solid var(--accent)',
+          transform: 'rotate(45deg)',
+        }} />
+      </button>
+
       {/* Image */}
       <div
         onClick={(e) => e.stopPropagation()}
@@ -157,19 +216,20 @@ export default function Lightbox({ photos, index, onClose, onNavigate }) {
       >
         <button
           onClick={prev}
-          disabled={index === 0}
           style={{
             background: 'none',
             border: '1px solid var(--border-2)',
-            color: index === 0 ? 'var(--text-muted)' : 'var(--text-dim)',
+            color: 'var(--text-dim)',
             fontFamily: 'var(--font-display)',
             fontSize: '0.6rem',
             letterSpacing: '0.15em',
             padding: '0.4rem 1rem',
-            cursor: index === 0 ? 'not-allowed' : 'pointer',
+            cursor: 'pointer',
             textTransform: 'uppercase',
             transition: 'all var(--ease)',
           }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-2)'; e.currentTarget.style.color = 'var(--text-dim)' }}
         >
           ← PREV
         </button>
@@ -205,19 +265,20 @@ export default function Lightbox({ photos, index, onClose, onNavigate }) {
 
         <button
           onClick={next}
-          disabled={index === photos.length - 1}
           style={{
             background: 'none',
             border: '1px solid var(--border-2)',
-            color: index === photos.length - 1 ? 'var(--text-muted)' : 'var(--text-dim)',
+            color: 'var(--text-dim)',
             fontFamily: 'var(--font-display)',
             fontSize: '0.6rem',
             letterSpacing: '0.15em',
             padding: '0.4rem 1rem',
-            cursor: index === photos.length - 1 ? 'not-allowed' : 'pointer',
+            cursor: 'pointer',
             textTransform: 'uppercase',
             transition: 'all var(--ease)',
           }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-2)'; e.currentTarget.style.color = 'var(--text-dim)' }}
         >
           NEXT →
         </button>

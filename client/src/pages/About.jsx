@@ -24,7 +24,7 @@ export default function About() {
               marginBottom: '0.5rem',
             }}
           >
-            // {t('about.title')}
+            // ABOUT
           </div>
           <h1
             style={{

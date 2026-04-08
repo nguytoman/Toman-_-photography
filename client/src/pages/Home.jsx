@@ -1,13 +1,24 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { usePhotos, useAlbums } from '../hooks/usePhotos'
+import { usePhotos, useAlbums, useWebProjects } from '../hooks/usePhotos'
+import api from '../api/client'
 
 export default function Home() {
   const { t } = useTranslation()
   const { photos } = usePhotos()
   const { albums } = useAlbums()
+  const { projects } = useWebProjects()
+  const [settings, setSettings] = useState({ coverPhoto: null, coverOpacity: 0.78 })
 
-  const featuredPhoto = photos[0]
+  useEffect(() => {
+    api.get('/settings').then(({ data }) => setSettings(data)).catch(() => {})
+  }, [])
+
+  const featuredPhoto = settings.coverPhoto
+    ? { filename: settings.coverPhoto }
+    : photos[0]
+  const coverOpacity = settings.coverOpacity ?? 0.78
 
   return (
     <main style={{ flex: 1, paddingTop: 'var(--nav-h)' }}>
@@ -31,7 +42,7 @@ export default function Home() {
               backgroundImage: `url(/uploads/${featuredPhoto.filename})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              filter: 'brightness(0.22)',
+              filter: `brightness(${1 - coverOpacity})`,
               zIndex: 0,
             }}
           />
@@ -81,17 +92,9 @@ export default function Home() {
               }}
             >
               <span style={{ color: 'var(--text-muted)' }}>SYS::</span>
-              {t('home.role').toUpperCase()}
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--accent)',
-                  animation: 'pulse 2s ease-in-out infinite',
-                }}
-              />
+              <Link to="/gallery" style={{ color: 'inherit', textDecoration: 'none' }}>{t('home.role').toUpperCase()}</Link>
+              <span style={{ color: 'var(--accent)', fontSize: '0.9rem', lineHeight: 1 }}>|</span>
+              <Link to="/webdesign" style={{ color: 'var(--accent)', textDecoration: 'none' }}>WEBDESIGN</Link>
             </div>
 
             <h1
@@ -123,23 +126,19 @@ export default function Home() {
               {t('home.tagline')}
             </h2>
 
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '1rem',
-                fontWeight: 300,
-                color: 'var(--text-dim)',
-                marginBottom: '3rem',
-                maxWidth: '50ch',
-                lineHeight: 1.8,
-              }}
-            >
-              {t('home.sub')}
-            </p>
+            <div style={{ marginBottom: '3rem' }} />
 
-            <Link to="/gallery" className="btn">
-              {t('home.cta')} →
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+              <Link to="/gallery" className="btn">
+                {t('home.cta')}
+                <span className="btn-arrow">{'>>'}</span>
+              </Link>
+              <div style={{ width: '1px', height: '28px', background: 'var(--border-2)' }} />
+              <Link to="/contact" className="btn btn-ghost">
+                {t('nav.contact')}
+                <span className="btn-arrow">{'>>'}</span>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -167,7 +166,8 @@ export default function Home() {
             {[
               { value: String(photos.length).padStart(3, '0'), label: t('home.stats.photos') },
               { value: String(albums.length).padStart(2, '0'), label: t('home.stats.albums') },
-              { value: '07+', label: t('home.stats.years') },
+              { value: String(projects.length).padStart(2, '0'), label: t('home.stats.webs') },
+              { value: String(new Date().getFullYear() - 2025).padStart(2, '0') + '+', label: t('home.stats.years') },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -177,7 +177,7 @@ export default function Home() {
                   alignItems: 'center',
                   gap: '1rem',
                   padding: '0 2rem',
-                  borderRight: i < 2 ? '1px solid var(--border)' : 'none',
+                  borderRight: i < 3 ? '1px solid var(--border)' : 'none',
                 }}
               >
                 <span

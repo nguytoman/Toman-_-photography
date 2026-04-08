@@ -56,7 +56,7 @@ p { max-width: 68ch; }
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   padding: 0.65rem 1.6rem;
   font-family: var(--font-display);
   font-size: 0.65rem;
@@ -67,14 +67,44 @@ p { max-width: 68ch; }
   color: var(--accent);
   background: transparent;
   cursor: pointer;
-  transition: background var(--ease), color var(--ease);
+  transition: background var(--ease), color var(--ease), box-shadow var(--ease);
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
   user-select: none;
   white-space: nowrap;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
-.btn:hover { background: var(--accent); color: var(--bg); }
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(245, 196, 0, 0.18), transparent);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+.btn:hover::before { left: 160%; }
+.btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 0 18px rgba(245, 196, 0, 0.25);
+}
 .btn:active { opacity: 0.85; }
+
+.btn-arrow {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  transition: opacity var(--ease), transform var(--ease);
+}
+.btn:hover .btn-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
 
 .btn-ghost {
   border-color: var(--border-2);

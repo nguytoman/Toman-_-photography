@@ -1,27 +1,36 @@
 {
   "nav": {
     "home": "Úvod",
-    "gallery": "Galerie",
+    "gallery": "Fotky",
+    "webdesign": "Webdesign",
     "about": "O mně",
+    "contact": "Kontakt",
     "admin": "Admin"
   },
   "home": {
     "role": "Fotograf",
-    "tagline": "Vizuální archiv",
-    "sub": "Zachycuji okamžiky, které trvají déle než vteřinu.",
+    "tagline": "THE Art of Emptiness",
+    "webdesign": "Webdesignér",
+    "webCreation": "Tvůrce webů",
+    "sub": "Welcome to my empty world",
     "cta": "Zobrazit galerii",
     "stats": {
       "photos": "Fotografií",
       "albums": "Alb",
-      "years": "Rok zkušeností"
+      "webs": "Webů",
+      "years": "Let praxe"
     }
   },
+  "webdesign": {
+    "empty": "Projekty budou brzy přidány."
+  },
   "gallery": {
-    "title": "Galerie",
+    "title": "Fotky",
     "all": "Vše",
     "empty": "Žádné fotografie v tomto albu.",
     "loading": "Načítám...",
     "photo": "Fotografie",
+    "photos": "Fotografií",
     "of": "z"
   },
   "about": {
@@ -32,6 +41,17 @@
     "instagram": "Instagram",
     "location": "Lokace",
     "locationValue": "Praha, CZ"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "sub": "Máte zájem o spolupráci nebo focení? Napište mi — ozvu se co nejdříve.",
+    "name": "Jméno",
+    "email": "E-mail",
+    "message": "Zpráva",
+    "send": "Odeslat",
+    "sending": "Odesílám...",
+    "success": "Zpráva odeslána. Ozvu se brzy.",
+    "error": "Nepodařilo se odeslat. Zkuste to prosím znovu."
   },
   "admin": {
     "title": "Admin",

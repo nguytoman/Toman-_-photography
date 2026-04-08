@@ -10,12 +10,16 @@ const PORT = process.env.PORT || 3001
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173' }))
 app.use(express.json())
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use('/uploads',   express.static(path.join(__dirname, 'uploads')))
+app.use('/originals', express.static(path.join(__dirname, 'data/originals')))
 
-app.use('/api/auth',   require('./routes/auth'))
-app.use('/api/photos', require('./routes/photos'))
-app.use('/api/albums', require('./routes/albums'))
-app.use('/api/upload', require('./routes/upload'))
+app.use('/api/auth',    require('./routes/auth'))
+app.use('/api/photos',  require('./routes/photos'))
+app.use('/api/albums',  require('./routes/albums'))
+app.use('/api/upload',  require('./routes/upload'))
+app.use('/api/contact',     require('./routes/contact'))
+app.use('/api/webprojects', require('./routes/webprojects'))
+app.use('/api/settings',   require('./routes/settings'))
 
 app.get('/api/health', (req, res) => res.json({ ok: true }))
 

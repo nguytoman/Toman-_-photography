@@ -1,27 +1,36 @@
 {
   "nav": {
     "home": "Home",
-    "gallery": "Gallery",
+    "gallery": "Photography",
+    "webdesign": "Webdesign",
     "about": "About",
+    "contact": "Contact",
     "admin": "Admin"
   },
   "home": {
     "role": "Photographer",
-    "tagline": "Visual Archive",
-    "sub": "Capturing moments that last longer than a second.",
+    "tagline": "THE Art of Emptiness",
+    "webdesign": "Web designer",
+    "webCreation": "Web creator",
+    "sub": "Welcome to my empty world",
     "cta": "View gallery",
     "stats": {
       "photos": "Photos",
       "albums": "Albums",
-      "years": "Years of experience"
+      "webs": "Websites",
+      "years": "Years of practice"
     }
   },
+  "webdesign": {
+    "empty": "Projects coming soon."
+  },
   "gallery": {
-    "title": "Gallery",
+    "title": "Photography",
     "all": "All",
     "empty": "No photos in this album.",
     "loading": "Loading...",
     "photo": "Photo",
+    "photos": "Photos",
     "of": "of"
   },
   "about": {
@@ -32,6 +41,17 @@
     "instagram": "Instagram",
     "location": "Location",
     "locationValue": "Prague, CZ"
+  },
+  "contact": {
+    "title": "Contact",
+    "sub": "Interested in a collaboration or a shoot? Write to me — I'll get back to you as soon as possible.",
+    "name": "Name",
+    "email": "E-mail",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent. I'll be in touch soon.",
+    "error": "Failed to send. Please try again."
   },
   "admin": {
     "title": "Admin",

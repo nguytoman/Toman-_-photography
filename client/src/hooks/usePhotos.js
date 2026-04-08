@@ -22,12 +22,22 @@ export function usePhotos(albumId = null) {
 
   useEffect(() => { fetchPhotos() }, [albumId])
 
-  const deletePhoto = async (id) => {
-    await api.delete(`/photos/${id}`)
-    setPhotos((prev) => prev.filter((p) => p.id !== id))
+  const deletePhoto = async (filename) => {
+    await api.delete('/photos', { data: { filename } })
+    setPhotos((prev) => prev.filter((p) => p.filename !== filename))
   }
 
   return { photos, loading, error, refetch: fetchPhotos, deletePhoto }
+}
+
+export function useWebProjects() {
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    api.get('/webprojects').then(({ data }) => setProjects(data)).catch(() => {})
+  }, [])
+
+  return { projects }
 }
 
 export function useAlbums() {

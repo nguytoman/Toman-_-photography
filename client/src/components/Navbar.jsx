@@ -53,7 +53,6 @@ const S = {
     fontWeight: 400,
   },
   links: {
-    display: 'flex',
     alignItems: 'center',
     gap: '0.25rem',
     listStyle: 'none',
@@ -65,13 +64,14 @@ const S = {
   },
 }
 
-function NavItem({ to, label }) {
+function NavItem({ to, label, onClick }) {
   const [hovered, setHovered] = useState(false)
 
   return (
     <li>
       <NavLink
         to={to}
+        onClick={onClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={({ isActive }) => ({
@@ -135,29 +135,62 @@ function LogoTyping() {
   )
 }
 
+function HamburgerIcon({ open }) {
+  const line = {
+    display: 'block',
+    width: '22px',
+    height: '1.5px',
+    background: 'var(--accent)',
+    transition: 'transform 0.22s ease, opacity 0.22s ease',
+  }
+  return (
+    <span style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+      <span style={{ ...line, transform: open ? 'translateY(6.5px) rotate(45deg)' : 'none' }} />
+      <span style={{ ...line, opacity: open ? 0 : 1 }} />
+      <span style={{ ...line, transform: open ? 'translateY(-6.5px) rotate(-45deg)' : 'none' }} />
+    </span>
+  )
+}
+
 export default function Navbar() {
   const { t } = useTranslation()
+  const { pathname } = useLocation()
+  const [open, setOpen] = useState(false)
+
+  // Close menu on route change
+  useEffect(() => { setOpen(false) }, [pathname])
+
+  const close = () => setOpen(false)
 
   return (
     <nav style={S.nav}>
-      <div style={S.inner}>
-        <Link to="/" style={S.logo}>
+      <div className="nav-inner" style={S.inner}>
+        <Link to="/" className="nav-logo" style={S.logo} onClick={close}>
           <span style={{ color: 'var(--text-dim)', fontWeight: 400 }}>SHOHAI</span>
           <span style={S.logoPrefix}>//</span>
           <LogoTyping />
         </Link>
 
-        <ul style={{ ...S.links, justifyContent: 'center' }}>
-          <NavItem to="/"           label={t('nav.home')} />
-          <NavItem to="/gallery"    label={t('nav.gallery')} />
-          <NavItem to="/webdesign"  label={t('nav.webdesign')} />
-          <NavItem to="/about"      label={t('nav.about')} />
-          <NavItem to="/contact"    label={t('nav.contact')} />
+        <ul className={`nav-links${open ? ' open' : ''}`} style={S.links}>
+          <NavItem to="/"           label={t('nav.home')}      onClick={close} />
+          <NavItem to="/gallery"    label={t('nav.gallery')}   onClick={close} />
+          <NavItem to="/webdesign"  label={t('nav.webdesign')} onClick={close} />
+          <NavItem to="/about"      label={t('nav.about')}     onClick={close} />
+          <NavItem to="/contact"    label={t('nav.contact')}   onClick={close} />
+          <li className="nav-lang-mobile"><LangToggle /></li>
         </ul>
 
-        <div style={{ ...S.right, justifyContent: 'flex-end' }}>
+        <div className="nav-right" style={{ ...S.right, justifyContent: 'flex-end' }}>
           <LangToggle />
         </div>
+
+        <button
+          className="nav-hamburger"
+          onClick={() => setOpen((o) => !o)}
+          aria-label="Toggle navigation"
+        >
+          <HamburgerIcon open={open} />
+        </button>
       </div>
     </nav>
   )

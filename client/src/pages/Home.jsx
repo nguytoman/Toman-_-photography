@@ -158,7 +158,7 @@ export default function Home() {
           }}
         >
           <div
-            className="container"
+            className="container home-stats"
             style={{
               display: 'flex',
               gap: '0',
@@ -173,6 +173,7 @@ export default function Home() {
             ].map((stat, i) => (
               <div
                 key={i}
+                className="home-stats-item"
                 style={{
                   flex: 1,
                   display: 'flex',

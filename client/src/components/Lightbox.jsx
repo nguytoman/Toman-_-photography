@@ -31,7 +31,7 @@ export default function Lightbox({ photos, index, onClose, onNavigate }) {
   if (!photo) return null
 
   const title = lang === 'cs' ? photo.title_cs : photo.title_en
-  const src = `/uploads/${photo.filename}`
+  const src = `/uploads/previews/${photo.preview || photo.filename}`
 
   return (
     <div

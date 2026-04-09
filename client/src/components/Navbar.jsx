@@ -142,6 +142,7 @@ export default function Navbar() {
     <nav style={S.nav}>
       <div style={S.inner}>
         <Link to="/" style={S.logo}>
+          <span style={{ color: 'var(--text-dim)', fontWeight: 400 }}>SHOHAI</span>
           <span style={S.logoPrefix}>//</span>
           <LogoTyping />
         </Link>

@@ -92,9 +92,11 @@ export default function Home() {
               }}
             >
               <span style={{ color: 'var(--text-muted)' }}>SYS::</span>
-              <Link to="/gallery" style={{ color: 'inherit', textDecoration: 'none' }}>{t('home.role').toUpperCase()}</Link>
+              <Link to="/gallery" style={{ color: 'inherit', textDecoration: 'none' }}>PHOTOGRAPHY</Link>
               <span style={{ color: 'var(--accent)', fontSize: '0.9rem', lineHeight: 1 }}>|</span>
               <Link to="/webdesign" style={{ color: 'var(--accent)', textDecoration: 'none' }}>WEBDESIGN</Link>
+              <span style={{ color: 'var(--accent)', fontSize: '0.9rem', lineHeight: 1 }}>|</span>
+              <span style={{ color: 'var(--accent)', textDecoration: 'none' }}>VIBE CODING</span>
             </div>
 
             <h1

@@ -3,6 +3,7 @@ const multer = require('multer')
 const path   = require('path')
 const fs     = require('fs')
 const auth   = require('../middleware/authMiddleware')
+const { generatePreview } = require('../utils/preview')
 
 const FOTKY_DIR = path.join(__dirname, '../uploads/fotky')
 
@@ -29,6 +30,9 @@ router.post('/', auth, upload.array('photos', 50), (req, res) => {
     fs.writeFileSync(filePath, f.buffer)
     return { filename: `fotky/${album}/${f.originalname}` }
   })
+
+  // Generate previews in background (non-blocking)
+  inserted.forEach(({ filename }) => generatePreview(filename).catch(console.error))
 
   res.status(201).json({ inserted })
 })

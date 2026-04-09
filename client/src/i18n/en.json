@@ -35,12 +35,14 @@
   },
   "about": {
     "title": "About",
-    "bio": "A photographer focused on documentary and street photography. I believe every frame tells a story — you just have to wait for the right moment.",
+    "bio": "I'm Toman.\nBarber, photographer, web designer.\nAll three crafts are about precision, detail and the transformation of a person or a space.\nI'm not an agency. I'm one person who cares about the details.\nI'm Toman and I fill the emptiness.\n\n#asianprecision",
     "contact": "Contact",
     "email": "Email",
     "instagram": "Instagram",
+    "phone": "Phone",
+    "address": "Address",
     "location": "Location",
-    "locationValue": "Prague, CZ"
+    "locationValue": "Uherské Hradiště, CZ"
   },
   "contact": {
     "title": "Contact",

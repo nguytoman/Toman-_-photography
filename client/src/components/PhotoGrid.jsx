@@ -39,9 +39,7 @@ export default function PhotoGrid({ photos }) {
 
 function PhotoThumb({ photo, index, onClick }) {
   const [hovered, setHovered] = useState(false)
-  const src = photo.thumb_filename
-    ? `/uploads/thumbs/${photo.thumb_filename}`
-    : `/uploads/${photo.filename}`
+  const src = `/uploads/previews/${photo.preview || photo.filename}`
 
   return (
     <div

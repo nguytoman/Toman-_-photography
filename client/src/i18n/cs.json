@@ -35,12 +35,14 @@
   },
   "about": {
     "title": "O mně",
-    "bio": "Fotograf se zaměřením na dokumentární a pouliční fotografii. Věřím, že každý záběr vypráví příběh — stačí jen počkat na správný okamžik.",
+    "bio": "Jsem Toman.\nBarber, fotograf a webdesignér.\nVšechna tři řemesla jsou o preciznosti, detailu a transformaci člověka nebo prostoru.\nNejsem agentura. Jsem jeden člověk, kterému záleží na detailech.\nJsem Toman a vyplňuji prázdnotu.\n\n#asianprecision",
     "contact": "Kontakt",
     "email": "E-mail",
     "instagram": "Instagram",
+    "phone": "Telefon",
+    "address": "Adresa",
     "location": "Lokace",
-    "locationValue": "Praha, CZ"
+    "locationValue": "Uherské Hradiště, CZ"
   },
   "contact": {
     "title": "Kontakt",

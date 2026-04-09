@@ -52,9 +52,14 @@ photographer-portfolio/
 │   │   ├── settings.js          # cover foto, overlay opacity
 │   │   ├── upload.js            # nahrávání nových fotek (multer)
 │   │   └── webprojects.js       # CRUD webových projektů
+│   ├── utils/
+│   │   └── preview.js           # generování náhledů (sharp, auto-rotace EXIF, vodoznak)
 │   ├── uploads/
-│   │   └── fotky/               # fotky rozdělené do podsložek = alba
-│   │       └── <Album>/
+│   │   ├── fotky/               # fotky v plné kvalitě (URL v public API skryté)
+│   │   │   └── <Album>/
+│   │   │       └── *.jpg
+│   │   └── previews/            # komprimované náhledy s vodoznakem (veřejné)
+│   │       └── fotky/<Album>/
 │   │           └── *.jpg
 │   └── data/                    # runtime JSON soubory (není DB)
 │       ├── photo-edits.json     # záznamy o editovaných fotkách + params
@@ -114,13 +119,18 @@ photographer-portfolio/
 
 ## Klíčové datové toky
 
+### Generování náhledů
+- `sharp(src).rotate()` — automaticky aplikuje EXIF orientaci (bez toho by fotky pořízené na výšku mohly být zobrazeny naležato)
+- Resize max 1920×1920, JPEG quality 72, vodoznak „© TOMAN PHOTOGRAPHY"
+
 ### Editace fotky
 1. Admin otevře PhotoEditor → pokud existuje originál (`photo-edits.json`), načte se `/originals/<filename>` + uložené params (zoom, náklon, ratio)
 2. Po uložení: `POST /api/photos/replace` → server zkopíruje originál do `data/originals/` (pouze pokud ještě neexistuje), přepíše aktuální soubor, zapíše params do `photo-edits.json`
 3. "Původní": `POST /api/photos/revert` → obnoví ze zálohy, smaže záznam i zálohu
 
 ### Statické soubory
-- `/uploads/*` → `server/uploads/` (fotky, veřejné)
+- `/uploads/previews/*` → `server/uploads/previews/` (komprimované náhledy s vodoznakem, veřejné)
+- `/uploads/*` → `server/uploads/` (originály, URL nejsou v public API, určeno pro admin)
 - `/originals/*` → `server/data/originals/` (zálohy originálů, pouze pro editor)
 
 ### Album = složka

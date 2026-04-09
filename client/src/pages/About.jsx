@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
 const CONTACT_ROWS = (t) => [
-  { key: t('about.email'),     value: 'foto@toman.cz',    href: 'mailto:foto@toman.cz' },
-  { key: t('about.instagram'), value: '@toman.foto',       href: 'https://instagram.com' },
-  { key: t('about.location'),  value: t('about.locationValue'), href: null },
+  { key: t('about.phone'),    value: '+420 773 661 060',        href: 'tel:+420773661060' },
+  { key: t('about.address'),  value: 'Všehrdova 506, 68601',   href: null },
+  { key: t('about.location'), value: t('about.locationValue'), href: null },
 ]
 
 export default function About() {
@@ -74,6 +74,7 @@ export default function About() {
               lineHeight: 1.85,
               marginBottom: '2rem',
               maxWidth: '55ch',
+              whiteSpace: 'pre-line',
             }}
           >
             {t('about.bio')}
@@ -81,7 +82,7 @@ export default function About() {
 
           {/* Tech tags */}
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {['Documentary', 'Street', 'Portrait', 'Architecture'].map((tag) => (
+            {['Street', 'Portrait', 'Architecture', 'Darkness'].map((tag) => (
               <span key={tag} className="tag">
                 {tag}
               </span>

@@ -2,7 +2,9 @@ const router    = require('express').Router()
 const path      = require('path')
 const fs        = require('fs')
 const multer    = require('multer')
+const jwt       = require('jsonwebtoken')
 const auth      = require('../middleware/authMiddleware')
+const { generatePreview, deletePreview } = require('../utils/preview')
 
 const replaceUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } })
 
@@ -43,16 +45,32 @@ function getFolderBySlug(slug) {
   )
 }
 
+function isAdminRequest(req) {
+  const token = (req.headers.authorization || '').replace('Bearer ', '')
+  if (!token) return false
+  try { jwt.verify(token, process.env.JWT_SECRET); return true } catch { return false }
+}
+
 // GET /api/photos?album=<slug>
+// Unauthenticated: returns { preview, album } — no full filename exposed
+// Authenticated:   returns { filename, preview, album }
 router.get('/', (req, res) => {
   const { album } = req.query
+  const admin = isAdminRequest(req)
+
+  const toEntry = (folder, f) => {
+    const filename = `fotky/${folder}/${f}`
+    const entry = { preview: filename, album: folder }
+    if (admin) entry.filename = filename
+    return entry
+  }
 
   if (album) {
     const folder = getFolderBySlug(album)
     if (!folder) return res.json([])
     const files = fs.readdirSync(path.join(FOTKY_DIR, folder))
       .filter(f => IMAGE_EXT.has(path.extname(f).toLowerCase()))
-    return res.json(sortedFiles(folder, files).map(f => ({ filename: `fotky/${folder}/${f}` })))
+    return res.json(sortedFiles(folder, files).map(f => toEntry(folder, f)))
   }
 
   const photos = []
@@ -63,7 +81,7 @@ router.get('/', (req, res) => {
     const files = fs.readdirSync(path.join(FOTKY_DIR, folder))
       .filter(f => IMAGE_EXT.has(path.extname(f).toLowerCase()))
     for (const f of sortedFiles(folder, files)) {
-      photos.push({ filename: `fotky/${folder}/${f}`, album: folder })
+      photos.push(toEntry(folder, f))
     }
   }
   res.json(photos)
@@ -106,6 +124,10 @@ router.post('/replace', auth, replaceUpload.single('file'), (req, res) => {
   saveEdits(edits)
 
   fs.writeFileSync(filePath, req.file.buffer)
+
+  // Regenerate preview after edit
+  generatePreview(filename).catch(console.error)
+
   res.json({ ok: true })
 })
 
@@ -121,6 +143,10 @@ router.post('/revert', auth, (req, res) => {
   const edits = getEdits()
   delete edits[filename]
   saveEdits(edits)
+
+  // Regenerate preview from restored original
+  generatePreview(filename).catch(console.error)
+
   res.json({ ok: true })
 })
 
@@ -132,6 +158,7 @@ router.delete('/', auth, (req, res) => {
   const filePath = path.join(__dirname, '../uploads', filename)
   try {
     fs.unlinkSync(filePath)
+    deletePreview(filename)
     res.json({ ok: true })
   } catch {
     res.status(404).json({ error: 'Not found' })
@@ -148,6 +175,8 @@ router.patch('/', auth, (req, res) => {
   fs.mkdirSync(path.dirname(newPath), { recursive: true })
   try {
     fs.renameSync(oldPath, newPath)
+    deletePreview(filename)
+    generatePreview(newFilename).catch(console.error)
     res.json({ ok: true, filename: newFilename })
   } catch {
     res.status(500).json({ error: 'Failed to move file' })
